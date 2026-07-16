@@ -2,6 +2,7 @@
 
 # --- Allow documentation ---
 !.gitignore
+!.github/
 !README.md
 !SLACK-POSTING-GUIDE.md
 !CONTENT-MANAGEMENT-GUIDE.md
@@ -20,3 +21,9 @@ app/public/wp-content/*
 app/public/wp-content/themes/*
 !app/public/wp-content/themes/marity-child/
 app/public/wp-content/themes/marity-child/aimes-private.php
+
+# --- Never commit local junk / backups ---
+app/public/wp-content/themes/marity-child/.venv/
+app/public/wp-content/themes/marity-child/backup*/
+app/public/wp-content/themes/marity-child/Backup*/
+.DS_Store

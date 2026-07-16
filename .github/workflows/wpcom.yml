@@ -1,0 +1,39 @@
+name: Deploy marity-child theme to WordPress.com
+
+# Runs on every push to main (-> production site) or staging (-> staging
+# site). Can also be triggered by hand from the GitHub "Actions" tab.
+on:
+  push:
+    branches: [ main, staging ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Assemble the theme (only the files that should ship)
+        run: |
+          SRC="app/public/wp-content/themes/marity-child"
+          mkdir -p build
+          rsync -a \
+            --exclude 'aimes-private.php' \
+            --exclude '.venv/' \
+            --exclude 'backup*/' \
+            --exclude 'Backup*/' \
+            --exclude '.DS_Store' \
+            "$SRC"/ build/
+          echo "----- Files that will be deployed to WordPress.com: -----"
+          find build -type f | sort
+
+      # WordPress.com looks for an artifact named exactly "wpcom".
+      # Its contents are merged into the target directory you set in the
+      # WordPress.com dashboard (i.e. /wp-content/themes/marity-child).
+      - name: Upload deployment artifact for WordPress.com
+        uses: actions/upload-artifact@v4
+        with:
+          name: wpcom
+          path: build
+          retention-days: 1
