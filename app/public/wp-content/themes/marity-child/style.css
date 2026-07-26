@@ -9,6 +9,11 @@ Text Domain: marity
 Template: marity
 */
 
+/* TEMPORARY DEPLOY TEST 2026-07-25 — remove once confirmed live, then delete this rule */
+body {
+	border-top: 8px solid red !important;
+}
+
 /* ==========================================================================
    Research Post Card - Design A: Elevated Info Card
    Targets all portfolio single pages (.single-portfolio-item)
