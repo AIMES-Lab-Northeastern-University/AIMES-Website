@@ -15,7 +15,7 @@ add_action( 'after_switch_theme', 'marity_child_flush_rewrite_rules_on_activatio
  */
 function marity_child_enqueue_styles() {
 	wp_enqueue_style( 'marity-parent-style', get_template_directory_uri() . '/style.css' );
-	wp_enqueue_style( 'marity-child-style', get_stylesheet_directory_uri() . '/style.css', array( 'marity-parent-style' ), wp_get_theme()->get('Version') );
+	wp_enqueue_style( 'marity-child-style', get_stylesheet_directory_uri() . '/style.css', array( 'marity-parent-style' ), filemtime( get_stylesheet_directory() . '/style.css' ) );
 }
 add_action( 'wp_enqueue_scripts', 'marity_child_enqueue_styles', 20 );
 
@@ -411,7 +411,7 @@ if ( ! function_exists( 'marity_child_theme_enqueue_scripts' ) ) {
 	function marity_child_theme_enqueue_scripts() {
 		$main_style = 'marity-main';
 
-		wp_enqueue_style( 'marity-child-style', get_stylesheet_directory_uri() . '/style.css', array( $main_style ) );
+		wp_enqueue_style( 'marity-child-style', get_stylesheet_directory_uri() . '/style.css', array( $main_style ), filemtime( get_stylesheet_directory() . '/style.css' ) );
 	}
 
 	add_action( 'wp_enqueue_scripts', 'marity_child_theme_enqueue_scripts' );
